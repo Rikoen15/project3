@@ -229,11 +229,22 @@ public class CourseAdministration {
      * TODO: Enrico
      */
     private static void showCourses(ArrayList<Course> courseList) {
-        System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t      COURSES");
-        for (int i = 0; i < 145; i++) System.out.print("-");
-        System.out.printf("\n%-15s %-110s %-8s %-6s\n", "COURSE NO.", "COURSE DESCRIPTION", "UNITS", "GRADE");
-        for (Course c : courseList)
-            System.out.println(c);
+        int highestYear = 1;
+            for (Course c: courseList) {
+                if (c.getYear() > highestYear) highestYear = c.getYear();
+            }
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t   COURSES");
+            for (int y = 1; y <= highestYear; y++) {
+                for (int t = 1; t <= 3; t++) {
+                    displayHeader(y, t);
+                    for (Course c: courseList) {
+                        if (c.getYear() == y && c.getTerm() == t) {
+                            System.out.printf("%-15s %-110s %-8s\n", c.getCourseNumber(), c.getDescriptiveTitle(), c.getUnits());
+                        }
+                    }
+                    termBuffer();
+                }
+            }
     }
 
     /**
